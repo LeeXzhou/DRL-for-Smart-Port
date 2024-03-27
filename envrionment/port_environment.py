@@ -2,7 +2,7 @@ import gym
 import torch
 import numpy as np
 import utils
-
+import boat_move
 
 class Port(gym.Env):
     metadata = {
@@ -10,7 +10,7 @@ class Port(gym.Env):
         'video.frames_per_second': 2
     }
 
-    def __init__(self, map_path: str, seed: int = 0) -> None:
+    def __init__(self, map_path: str, boat_capacity : int = 70, seed: int = 0) -> None:
         '''
         :param map_path: read map file path
         :param seed: for random generating goods
@@ -26,22 +26,28 @@ class Port(gym.Env):
         self.observation_space = None
         self.map_path = map_path
         self.map = np.zeros((200, 200))
+        self.capacity = boat_capacity
+        self.boat = []
         self.score = 0
+        self.goods_info = []
         self.reset()
         pass
 
     def step(self, actions):
         for action in actions:
-            actor = action[:4]
-            if actor == "robo":
+            option = action[:2]
+            if option == "mo":
                 None
-            elif actor == "ship":
+            elif option == "ge":
                 None
         return self.state
 
     def reset(self):
         self.map = utils.map_translator(self.map_path)
         self.score = 0
+        self.boat = []
+        for i in range(0, 10):
+            self.boat.append(boat_move.boat_info(self.capacity, -1, 0))
         return self.state
 
     def render(self, mode='human'):
