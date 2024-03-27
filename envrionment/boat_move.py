@@ -35,18 +35,18 @@ class boat_info():
         if re.match("ship", option):
             if(self.cur_pos==-1):
                 self.status=0
-                self.berth_info[self.aim_berth].free=True
+                boat_info.berth_info[self.aim_berth].free=True
                 self.aim_berth=option
-                self.reach_time=self.berth_info[self.aim_berth].transport_time+1
+                self.reach_time=boat_info.berth_info[self.aim_berth].transport_time+1
             else:
                 self.status=0
-                self.berth_info[self.aim_berth].free=True
+                boat_info.berth_info[self.aim_berth].free=True
                 self.aim_berth=option
                 self.reach_time=500+1
         elif re.match("go", option):
             self.status=0
-            self.berth_info[self.aim_berth].free=True
-            self.reach_time=self.berth_info[self.aim_berth].transport_time+1
+            boat_info.berth_info[self.aim_berth].free=True
+            self.reach_time=boat_info.berth_info[self.aim_berth].transport_time+1
             self.aim_berth=option
             #+1 means the frame we get the order "ship" or "go" , the boat not move at once ,so we need an extra frame to minus
         else:
@@ -65,9 +65,9 @@ class boat_info():
                     self.cur_num = 0
                     return ret
                 else:
-                    if(self.berth_info[self.aim_berth].free):
+                    if(boat_info.berth_info[self.aim_berth].free):
                         self.status=1
-                        self.berth_info[self.aim_berth].free=False
+                        boat_info.berth_info[self.aim_berth].free=False
                         self.cur_pos=self.aim_berth
                     else:
                         self.status=2
@@ -77,8 +77,9 @@ class boat_info():
                 # just waiting at the discharging port
                 return 0
             else:
-                # loading cargos from the port
-                
+                # automatically loading cargos from the port
+                for i in range (boat_info.berth_info[self.cur_pos].loading_speed):
+                    None
                 return 0
         else:
             return 0
