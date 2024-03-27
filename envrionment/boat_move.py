@@ -5,7 +5,7 @@ import berth
 
 class boat_info():
     capacity = 0
-    berth_info: list[berth] = berth.berth_info  # 10 berth information
+    berth_info: list[berth.berth] = berth.berth_info  # 10 berth information
 
     def __init__(self, max_capacity: int, cur_pos: int = -1, cur_num: int = 0) -> None:
         '''
