@@ -1,12 +1,11 @@
-import torch
-import numpy as np
-import berth
 import re
+
+import berth
 
 
 class boat_info():
     capacity = 0
-    berth_info = berth.berth_info
+    berth_info: list[berth] = berth.berth_info  # 10 berth information
 
     def __init__(self, max_capacity: int, cur_pos: int = -1, cur_num: int = 0) -> None:
         '''
@@ -33,30 +32,29 @@ class boat_info():
         '''
 
         if re.match("ship", option):
-            if(self.cur_pos==-1):
-                self.status=0
-                boat_info.berth_info[self.aim_berth].free=True
-                self.aim_berth=option
-                self.reach_time=boat_info.berth_info[self.aim_berth].transport_time+1
+            if (self.cur_pos == -1):
+                self.status = 0
+                boat_info.berth_info[self.aim_berth].free = True
+                self.aim_berth = option
+                self.reach_time = boat_info.berth_info[self.aim_berth].transport_time + 1
             else:
-                self.status=0
-                boat_info.berth_info[self.aim_berth].free=True
-                self.aim_berth=option
-                self.reach_time=500+1
+                self.status = 0
+                boat_info.berth_info[self.aim_berth].free = True
+                self.aim_berth = option
+                self.reach_time = 500 + 1
         elif re.match("go", option):
-            self.status=0
-            boat_info.berth_info[self.aim_berth].free=True
-            self.reach_time=boat_info.berth_info[self.aim_berth].transport_time+1
-            self.aim_berth=option
-            #+1 means the frame we get the order "ship" or "go" , the boat not move at once ,so we need an extra frame to minus
+            self.status = 0
+            boat_info.berth_info[self.aim_berth].free = True
+            self.reach_time = boat_info.berth_info[self.aim_berth].transport_time + 1
+            self.aim_berth = option  # +1 means the frame we get the order "ship" or "go" , the boat not move at once ,so we need an extra frame to minus
         else:
             return
 
     def update(self) -> int:
-        if(self.status == 0):
+        if (self.status == 0):
             self.reach_time -= 1
-            if(self.reach_time == 0):
-                if(self.aim_berth == -1):
+            if (self.reach_time == 0):
+                if (self.aim_berth == -1):
                     # reach the discharging port and reset the boat status, cargo numbers, position, score
                     ret = self.score
                     self.score = 0
@@ -65,20 +63,20 @@ class boat_info():
                     self.cur_num = 0
                     return ret
                 else:
-                    if(boat_info.berth_info[self.aim_berth].free):
-                        self.status=1
-                        boat_info.berth_info[self.aim_berth].free=False
-                        self.cur_pos=self.aim_berth
+                    if (boat_info.berth_info[self.aim_berth].free):
+                        self.status = 1
+                        boat_info.berth_info[self.aim_berth].free = False
+                        self.cur_pos = self.aim_berth
                     else:
-                        self.status=2
+                        self.status = 2
             return 0
-        elif(self.status==1):
-            if(self.cur_pos==-1):
+        elif (self.status == 1):
+            if (self.cur_pos == -1):
                 # just waiting at the discharging port
                 return 0
             else:
                 # automatically loading cargos from the port
-                for i in range (boat_info.berth_info[self.cur_pos].loading_speed):
+                for i in range(boat_info.berth_info[self.cur_pos].loading_speed):
                     None
                 return 0
         else:

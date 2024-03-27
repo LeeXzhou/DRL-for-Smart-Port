@@ -1,17 +1,21 @@
-import gym
-import torch
-import numpy as np
-import utils
-import boat_move
 import re
+
+import gym
+import numpy as np
+
 import berth
+import boat_move
+import utils
+
+
 class Port(gym.Env):
     metadata = {
         'render.modes': ['human', 'rgb_array'],
         'video.frames_per_second': 2
     }
 
-    def __init__(self, map_path: str, loading_speeds : list, transport_times : list, boat_capacity : int = 70, seed: int = 0) -> None:
+    def __init__(self, map_path: str, loading_speeds: list, transport_times: list, boat_capacity: int = 70,
+                 seed: int = 0) -> None:
         '''
         :param map_path: read map file path
         :param seed: for random generating goods
@@ -38,16 +42,17 @@ class Port(gym.Env):
 
     def step(self, actions):
         for action in actions:
-            numbers=re.findall(r'-?\d+',action) # collect the integers in "action" to judge the action is legal or not
-            if re.match("move",action) and len(numbers)==2:
+            numbers = re.findall(r'-?\d+',
+                                 action)  # collect the integers in "action" to judge the action is legal or not
+            if re.match("move", action) and len(numbers) == 2:
                 None
-            elif re.match("get",action) and len(numbers)==1:
+            elif re.match("get", action) and len(numbers) == 1:
                 None
-            elif re.match("pull",action) and len(numbers)==1:
+            elif re.match("pull", action) and len(numbers) == 1:
                 None
-            elif re.match("go",action) and len(numbers)==1:
+            elif re.match("go", action) and len(numbers) == 1:
                 None
-            elif re.match("ship",action) and len(numbers)==2:
+            elif re.match("ship", action) and len(numbers) == 2:
                 None
         return self.state
 
@@ -58,7 +63,7 @@ class Port(gym.Env):
         self.boat = []
         for i in range(0, 10):
             self.boat.append(boat_move.boat_info(self.capacity, -1, 0))
-        return self.state 
+        return self.state
 
     def render(self, mode='human'):
         return None

@@ -1,11 +1,13 @@
-import numpy as np
 import matplotlib.pyplot as plt
-def map_translator(map_path : str) -> np.array:
+import numpy as np
+
+
+def map_translator(map_path: str) -> np.array:
     '''
     :param map_path: map file path
     :return: map
     '''
-    map_dict = {'.' : 0, '*' : -1, '#' : -2, 'A' : -3, 'B' : -4}
+    map_dict = {'.': 0, '*': -1, '#': -2, 'A': -3, 'B': -4}
     ret = np.zeros((200, 200))
     with open(map_path, 'r') as file:
         lines = file.readlines()
@@ -18,11 +20,13 @@ def map_translator(map_path : str) -> np.array:
             row += 1
             column = 0
     return ret
-def show_map(map : np.array) -> None:
+
+
+def show_map(map: np.array) -> None:
     '''
     :param map: map information
     '''
-    img=np.zeros((600,600),dtype=np.uint8)
+    img = np.zeros((600, 600), dtype=np.uint8)
     for i in range(0, 200):
         for j in range(0, 200):
             tp = (0, 0, 0)
@@ -41,5 +45,3 @@ def show_map(map : np.array) -> None:
                     img[i * 3 + u][j * 3 + v] = tp
     plt.imshow(img)
     plt.show()
-
-
