@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-
+map=np.zeros((200,200))
 
 def map_translator(map_path: str) -> np.array:
     '''
@@ -19,6 +19,8 @@ def map_translator(map_path: str) -> np.array:
                 column += 1
             row += 1
             column = 0
+    global map
+    map =ret
     return ret
 
 
@@ -45,3 +47,11 @@ def show_map(map: np.array) -> None:
                     img[i * 3 + u][j * 3 + v] = tp
     plt.imshow(img)
     plt.show()
+
+def check_valid(x:int,y:int)->bool:
+    global map
+    if(x>=200 or x<0 or y<0 or y>=200):
+        return False
+    if(map[x][y]==-1 or map[x][y]==-2):
+        return False
+    return True

@@ -5,7 +5,7 @@ import berth
 
 class boat_info():
     capacity = 0
-    berth_info: list[berth] = berth.berth_info  # 10 berth information
+    berth_info: list[berth.berth] = berth.berth_info  # 10 berth information
 
     def __init__(self, max_capacity: int, cur_pos: int = -1, cur_num: int = 0) -> None:
         '''
@@ -46,7 +46,8 @@ class boat_info():
             self.status = 0
             boat_info.berth_info[self.aim_berth].free = True
             self.reach_time = boat_info.berth_info[self.aim_berth].transport_time + 1
-            self.aim_berth = option  # +1 means the frame we get the order "ship" or "go" , the boat not move at once ,so we need an extra frame to minus
+            # +1 means the frame we get the order "ship" or "go" , the boat not move at once ,so we need an extra frame to minus
+            self.aim_berth = option
         else:
             return
 
@@ -77,9 +78,14 @@ class boat_info():
             else:
                 # automatically loading cargos from the port
                 for i in range(boat_info.berth_info[self.cur_pos].loading_speed):
-                    None
+                    if(boat_info.berth_info[self.cur_pos].goods_info.empty()):
+                        break
+                    temp_value = boat_info.berth_info[self.cur_pos].goods_info.get()
+                    self.cur_num += 1
+                    self.score += temp_value
                 return 0
         else:
+            # if status==2 just do nothing
             return 0
 
     def boat_load(self):

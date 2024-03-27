@@ -38,6 +38,7 @@ class Port(gym.Env):
         self.loading_speeds = loading_speeds
         self.transport_times = transport_times
         self.reset()
+        self.time=0
         pass
 
     def step(self, actions):
