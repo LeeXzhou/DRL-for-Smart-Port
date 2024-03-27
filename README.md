@@ -3,12 +3,9 @@
 DRL in solving smart port
     </font>
 </div>
+[![Stargazers repo roster for @LeeXzhou/DRL-for-Smart-Port](https://reporoster.com/stars/LeeXzhou/DRL-for-Smart-Port)](https://github.com/LeeXzhou/DRL-for-Smart-Port/stargazers)
 
-<div align=center>
-  <img src="https://img.shields.io/badge/Python-blue" />
-  <img src="https://img.shields.io/badge/Pytorch-ff69b4" />
-  <img src="https://img.shields.io/badge/DRL-blueviolet" />
-</div>
+[![Forkers repo roster for @LeeXzhou/DRL-for-Smart-Port](https://reporoster.com/forks/LeeXzhou/DRL-for-Smart-Port)](https://github.com/LeeXzhou/DRL-for-Smart-Port/network/members)
 
 # 文件结构
 
