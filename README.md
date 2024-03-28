@@ -7,9 +7,11 @@ DRL in solving smart port
 
 [![Forkers repo roster for @LeeXzhou/DRL-for-Smart-Port](https://reporoster.com/forks/LeeXzhou/DRL-for-Smart-Port)](https://github.com/LeeXzhou/DRL-for-Smart-Port/network/members)
 
-# 文件结构
+# File structure
 
 ### environment
 
-- port_environment.py
+- port_environment.py: 
+- robot_move.py: 
+- utils.py: record a global variable "Map", and supply some useful functions
 

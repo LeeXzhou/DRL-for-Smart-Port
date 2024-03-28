@@ -60,7 +60,7 @@ class Port(gym.Env):
         berth.init_berth(self.loading_speeds, self.transport_times)
         self.boat = []
         for i in range(0, 10):
-            self.boat.append(boat_move.boat_info(self.capacity, -1, 0))
+            self.boat.append(boat_move.Boat_info(self.capacity, -1, 0))
         return self.state
 
     def render(self, mode='human'):

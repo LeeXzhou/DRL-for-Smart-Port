@@ -2,7 +2,7 @@ import re
 import berth
 
 
-class boat_info():
+class Boat_info():
     capacity = 0
     berth_info: list[berth.Berth] = berth.berth_info  # 10 berth information
 
@@ -21,7 +21,7 @@ class boat_info():
         self.aim_berth = -1
         self.reach_time = -1
 
-        boat_info.capacity = max_capacity
+        Boat_info.capacity = max_capacity
 
     def boat_move(self, option: str, goal: int = -1):
         """
@@ -34,18 +34,18 @@ class boat_info():
         if re.match("ship", option):
             if (self.cur_pos == -1):
                 self.status = 0
-                boat_info.berth_info[self.aim_berth].free = True
+                Boat_info.berth_info[self.aim_berth].free = True
                 self.aim_berth = option
-                self.reach_time = boat_info.berth_info[self.aim_berth].transport_time + 1
+                self.reach_time = Boat_info.berth_info[self.aim_berth].transport_time + 1
             else:
                 self.status = 0
-                boat_info.berth_info[self.aim_berth].free = True
+                Boat_info.berth_info[self.aim_berth].free = True
                 self.aim_berth = option
                 self.reach_time = 500 + 1
         elif re.match("go", option):
             self.status = 0
-            boat_info.berth_info[self.aim_berth].free = True
-            self.reach_time = boat_info.berth_info[self.aim_berth].transport_time + 1
+            Boat_info.berth_info[self.aim_berth].free = True
+            self.reach_time = Boat_info.berth_info[self.aim_berth].transport_time + 1
             # +1 means the frame we get the order "ship" or "go" , the boat not move at once ,so we need an extra frame to minus
             self.aim_berth = option
         else:
@@ -64,9 +64,9 @@ class boat_info():
                     self.cur_num = 0
                     return ret
                 else:
-                    if (boat_info.berth_info[self.aim_berth].free):
+                    if (Boat_info.berth_info[self.aim_berth].free):
                         self.status = 1
-                        boat_info.berth_info[self.aim_berth].free = False
+                        Boat_info.berth_info[self.aim_berth].free = False
                         self.cur_pos = self.aim_berth
                     else:
                         self.status = 2
@@ -77,10 +77,10 @@ class boat_info():
                 return 0
             else:
                 # automatically loading cargos from the port
-                for i in range(boat_info.berth_info[self.cur_pos].loading_speed):
-                    if (boat_info.berth_info[self.cur_pos].goods_info.empty()):
+                for i in range(Boat_info.berth_info[self.cur_pos].loading_speed):
+                    if (Boat_info.berth_info[self.cur_pos].goods_info.empty()):
                         break
-                    temp_value = boat_info.berth_info[self.cur_pos].goods_info.get()
+                    temp_value = Boat_info.berth_info[self.cur_pos].goods_info.get()
                     self.cur_num += 1
                     self.score += temp_value
                 return 0
