@@ -1,8 +1,5 @@
 import re
-
 import gym
-import numpy as np
-
 import berth
 import boat_move
 import utils
@@ -16,7 +13,7 @@ class Port(gym.Env):
 
     def __init__(self, map_path: str, loading_speeds: list, transport_times: list, boat_capacity: int = 70,
                  seed: int = 0) -> None:
-        '''
+        """
         :param map_path: read map file path
         :param seed: for random generating goods
         map description:
@@ -26,19 +23,19 @@ class Port(gym.Env):
         A -> -3 robot position
         B -> -4 port position, consist of 4 * 4 points
         a positive number means that here is a good and the number means its value
-        '''
+        """
         self.action_space = None
         self.observation_space = None
         self.map_path = map_path
-        self.map = np.zeros((200, 200))
         self.capacity = boat_capacity
         self.boat = []
         self.score = 0
         self.goods_info = []
         self.loading_speeds = loading_speeds
         self.transport_times = transport_times
+        self.state = {"map": utils.Map}
         self.reset()
-        self.time=0
+        self.time = 0
         pass
 
     def step(self, actions):
@@ -57,8 +54,8 @@ class Port(gym.Env):
                 None
         return self.state
 
-    def reset(self):
-        self.map = utils.map_translator(self.map_path)
+    def reset(self, **kwargs):
+        utils.map_translator(self.map_path)
         self.score = 0
         berth.init_berth(self.loading_speeds, self.transport_times)
         self.boat = []

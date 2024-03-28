@@ -1,20 +1,19 @@
 import re
-
 import berth
 
 
 class boat_info():
     capacity = 0
-    berth_info: list[berth.berth] = berth.berth_info  # 10 berth information
+    berth_info: list[berth.Berth] = berth.berth_info  # 10 berth information
 
     def __init__(self, max_capacity: int, cur_pos: int = -1, cur_num: int = 0) -> None:
-        '''
+        """
         :param max_capacity: all boats share a max_capacity, so capacity is a class variable
         :param cur_pos: boat current berth
         :param cur_num: boat current goods num, if num = capacity, it's incapable of loading any goods
         status :0 -> moving, 1 -> at the berth or discharging port 2 -> waiting outside the berth
         reach_time : ->time the boat reach its aim
-        '''
+        """
         self.cur_pos = cur_pos
         self.cur_num = cur_num
         self.status = 0
@@ -25,11 +24,12 @@ class boat_info():
         boat_info.capacity = max_capacity
 
     def boat_move(self, option: str, goal: int = -1):
-        '''
+        """
         control the boat to go to target berth
+        :param option: control boat
         :param goal: target berth or discharging port
         :return:
-        '''
+        """
 
         if re.match("ship", option):
             if (self.cur_pos == -1):
@@ -78,7 +78,7 @@ class boat_info():
             else:
                 # automatically loading cargos from the port
                 for i in range(boat_info.berth_info[self.cur_pos].loading_speed):
-                    if(boat_info.berth_info[self.cur_pos].goods_info.empty()):
+                    if (boat_info.berth_info[self.cur_pos].goods_info.empty()):
                         break
                     temp_value = boat_info.berth_info[self.cur_pos].goods_info.get()
                     self.cur_num += 1

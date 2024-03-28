@@ -1,4 +1,4 @@
-class goods_info():
+class Goods_info():
     def __init__(self, pos_x: int, pos_y: int, disappear_time: int) -> None:
         self.pos_x = pos_x
         self.pos_y = pos_y
