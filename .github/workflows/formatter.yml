@@ -1,4 +1,4 @@
-name: Format Code
+name: formatter
 
 on:
   pull_request:
