@@ -45,8 +45,8 @@ def show_map() -> None:
 
 
 def check_valid(x: int, y: int) -> bool:
-    if (x >= 200 or x < 0 or y < 0 or y >= 200):
+    if x >= 200 or x < 0 or y < 0 or y >= 200:
         return False
-    if (Map[x][y] == -1 or Map[x][y] == -2):
+    if Map[x][y] == -1 or Map[x][y] == -2:
         return False
     return True

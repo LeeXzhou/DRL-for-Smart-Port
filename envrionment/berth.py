@@ -3,7 +3,7 @@ import queue
 global berth_info
 
 
-class Berth():
+class Berth:
     def __init__(self, loading_speed: int, transport_time: int) -> None:
         """
         :param loading loading_speed: how many goods the berth can load to ship per frame

@@ -2,7 +2,7 @@ import re
 import berth
 
 
-class Boat_info():
+class Boat_info:
     capacity = 0
     berth_info: list[berth.Berth] = berth.berth_info  # 10 berth information
 
@@ -32,11 +32,13 @@ class Boat_info():
         """
 
         if re.match("ship", option):
-            if (self.cur_pos == -1):
+            if self.cur_pos == -1:
                 self.status = 0
                 Boat_info.berth_info[self.aim_berth].free = True
                 self.aim_berth = option
-                self.reach_time = Boat_info.berth_info[self.aim_berth].transport_time + 1
+                self.reach_time = (
+                    Boat_info.berth_info[self.aim_berth].transport_time + 1
+                )
             else:
                 self.status = 0
                 Boat_info.berth_info[self.aim_berth].free = True
@@ -52,10 +54,10 @@ class Boat_info():
             return
 
     def update(self) -> int:
-        if (self.status == 0):
+        if self.status == 0:
             self.reach_time -= 1
-            if (self.reach_time == 0):
-                if (self.aim_berth == -1):
+            if self.reach_time == 0:
+                if self.aim_berth == -1:
                     # reach the discharging port and reset the boat status, cargo numbers, position, score
                     ret = self.score
                     self.score = 0
@@ -64,21 +66,21 @@ class Boat_info():
                     self.cur_num = 0
                     return ret
                 else:
-                    if (Boat_info.berth_info[self.aim_berth].free):
+                    if Boat_info.berth_info[self.aim_berth].free:
                         self.status = 1
                         Boat_info.berth_info[self.aim_berth].free = False
                         self.cur_pos = self.aim_berth
                     else:
                         self.status = 2
             return 0
-        elif (self.status == 1):
-            if (self.cur_pos == -1):
+        elif self.status == 1:
+            if self.cur_pos == -1:
                 # just waiting at the discharging port
                 return 0
             else:
                 # automatically loading cargos from the port
                 for i in range(Boat_info.berth_info[self.cur_pos].loading_speed):
-                    if (Boat_info.berth_info[self.cur_pos].goods_info.empty()):
+                    if Boat_info.berth_info[self.cur_pos].goods_info.empty():
                         break
                     temp_value = Boat_info.berth_info[self.cur_pos].goods_info.get()
                     self.cur_num += 1
