@@ -1,0 +1,51 @@
+name: formatter
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths: 
+      - '**.py'
+
+permissions:
+  contents: write
+  pull-requests: write 
+  issues: read
+  packages: none
+
+jobs:
+  auto-format:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Extract name
+        id: branch_name
+        run: |
+          echo "branch=$( ${GITHUB_REF} | sed 's/refs\///')" >> $GITHUB_OUTPUT 
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.7'
+
+      - name: Setup Git
+        uses: actions4git/setup-git@v1
+
+      - name: Install Dependencies
+        run: |
+          pip install black
+
+      - name: Code formatting
+        run: |
+          black . --skip-string-normalization
+
+      - name: Commit changes
+        run: |
+         git add .
+         git commit -m "style: format the code with black" || true
+         git push origin HEAD:$GITHUB_HEAD_REF

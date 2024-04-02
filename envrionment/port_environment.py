@@ -6,13 +6,16 @@ import utils
 
 
 class Port(gym.Env):
-    metadata = {
-        'render.modes': ['human', 'rgb_array'],
-        'video.frames_per_second': 2
-    }
+    metadata = {'render.modes': ['human', 'rgb_array'], 'video.frames_per_second': 2}
 
-    def __init__(self, map_path: str, loading_speeds: list, transport_times: list, boat_capacity: int = 70,
-                 seed: int = 0) -> None:
+    def __init__(
+        self,
+        map_path: str,
+        loading_speeds: list,
+        transport_times: list,
+        boat_capacity: int = 70,
+        seed: int = 0,
+    ) -> None:
         """
         :param map_path: read map file path
         :param seed: for random generating goods
@@ -40,8 +43,9 @@ class Port(gym.Env):
 
     def step(self, actions):
         for action in actions:
-            numbers = re.findall(r'-?\d+',
-                                 action)  # collect the integers in "action" to judge the action is legal or not
+            numbers = re.findall(
+                r'-?\d+', action
+            )  # collect the integers in "action" to judge the action is legal or not
             if re.match("move", action) and len(numbers) == 2:
                 None
             elif re.match("get", action) and len(numbers) == 1:
