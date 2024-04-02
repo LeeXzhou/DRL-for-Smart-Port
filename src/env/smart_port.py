@@ -11,11 +11,9 @@ from src.utils.logger import log
 from src.utils.map_util import map_translator
 
 
-
 class SmartPort(AECEnv):
-
     TEST = 100
-    
+
     def __init__(
         self,
         map_path: str = 'maps/map1.txt',
@@ -24,18 +22,21 @@ class SmartPort(AECEnv):
         num_berths: int = 10,
     ):
         super().__init__()
-        
+
         self._map = map_translator(map_path)
-        
+
         self.num_robots = num_robots
         self.num_boats = num_boats
         self.num_berths = num_berths
 
-    def reset(self): ...
+    def reset(self):
+        ...
 
-    def step(self): ...
+    def step(self):
+        ...
 
-    def observe(self): ...
+    def observe(self):
+        ...
 
     def render(self, mode='human', use_pygame=False):
         if use_pygame:
@@ -68,12 +69,11 @@ class SmartPort(AECEnv):
         else:
             """use matplotlib to render the environment"""
             # log.info(matplotlib.get_backend())
-            
+
             if not hasattr(self, 'ax') or not hasattr(self, 'fig'):
                 self.fig, self.ax = plt.subplots(1, 1, figsize=(10, 10), dpi=300)
 
             cmap = ListedColormap(MAP_COLOR)
-
 
             self.ax.imshow(self._map, cmap=cmap)
 
