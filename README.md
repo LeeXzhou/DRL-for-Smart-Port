@@ -7,13 +7,13 @@ DRL in solving smart port
 
 [![Forkers repo roster for @LeeXzhou/DRL-for-Smart-Port](https://reporoster.com/forks/LeeXzhou/DRL-for-Smart-Port)](https://github.com/LeeXzhou/DRL-for-Smart-Port/network/members)
 
-# File structure
+# Project Structure
 
 ```
 DRL4SmartPort
 
 .
-├── envrionment        # to_delete?  deprecated.  
+├── envrionment        # to_delete?  deprecated? 
 │   ├── berth.py
 │   ├── boat_move.py
 │   ├── goods_generate.py
@@ -22,8 +22,13 @@ DRL4SmartPort
 │   └── utils.py
 ├── maps
 ├── src
-│   ├── agent
-│   ├── consts.py       # save global consts
+│   ├── agents  # classes that can be controlled
+│   │   ├── boat.py
+│   │   └── robot.py
+│   ├── consts.py       # global consts
+│   ├── entities    # classes that cannot be controlled
+│   │   ├── goods.py  # if not needed, remove the file `goods.py`
+│   │   └── berth.py  
 │   ├── env
 │   │   └── smart_port.py
 │   └── utils
@@ -34,7 +39,7 @@ DRL4SmartPort
     └── test.py         # pytest file
 ```
 
-### environment
+### environment (to delete)
 
 - port_environment.py: 
 - robot_move.py: 
@@ -59,3 +64,6 @@ DRL4SmartPort
   └─⫸ Commit Type: build|ci|doc|docs|feat|fix|perf|refactor|test
                     website|chore|style|type|revert
 ```
+references: 
++ https://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html 
++ ...
