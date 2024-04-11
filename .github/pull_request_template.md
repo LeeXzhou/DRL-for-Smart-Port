@@ -1,8 +1,6 @@
 ### WHAT
 
-copilot:summary
-
-copilot:poem
+<!-- author to complete -->
 
 ### WHY
 
@@ -10,5 +8,5 @@ copilot:poem
 
 ### HOW
 
-copilot:walkthrough
+<!-- author to complete -->
 
