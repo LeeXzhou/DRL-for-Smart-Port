@@ -24,7 +24,8 @@ MAP_COLOR = [
 ]
 
 ## directions (may differ from official manual)
-DIR_UP = 0
-DIR_RIGHT = 1
-DIR_DOWN = 2
-DIR_LEFT = 3
+DIR_STAY = 0
+DIR_UP = 1
+DIR_RIGHT = 2
+DIR_DOWN = 3
+DIR_LEFT = 4

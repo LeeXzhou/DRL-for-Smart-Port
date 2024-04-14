@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import pettingzoo as pz
 import pygame
 
+from gymnasium.spaces import MultiDiscrete
 from matplotlib.colors import ListedColormap
 from pettingzoo import AECEnv
 from typing import Tuple
@@ -24,11 +25,32 @@ class SmartPort(AECEnv):
     ):
         super().__init__()
 
-        self._map = map_translator(map_path)
-
         self.num_robots = num_robots
         self.num_boats = num_boats
         self.num_berths = num_berths
+
+        robot_action_spaces = {
+            f'robot_{i}': MultiDiscrete([5, 2, 2]) for i in range(num_robots)
+        }
+        """
+        the first dimension of the action space is the moving direction (4 dirs and stay) of the robot \n
+        the second dimension of the action space is the get action (bool) of the robot \n
+        the third dimension of the action space is the pull action (bool) of the robot
+        """
+
+        boat_action_spaces = {
+            f'boat_{i}': MultiDiscrete(np.array([2, 2, num_berths]))
+            for i in range(num_boats)
+        }
+        """
+        the first dimension of the boat action space is the go action (bool) of the boat
+        the second dimension of the boat action space is the ship action (bool) of the boat
+        the third dimension of the boat action space is the ship dest of the boat.
+        """
+
+        self.action_spaces = {**robot_action_spaces, **boat_action_spaces}
+
+        self._map = map_translator(map_path)
 
     def reset(self): ...
 
