@@ -1,4 +1,6 @@
 from collections import deque
+from queue import Queue
+from typing import List
 
 
 class Boat:
@@ -30,6 +32,40 @@ class Boat:
         """target: berth to arrive"""
         self.reach_time = -1
 
-    def act(self):
+    def sample_action(self):
         """output all actions of boat include ship and go"""
         pass
+
+    def safe_load(self, goods: List[float]) -> int:
+        """load goods from list
+
+        Args:
+            goods (List[float]): goods value list
+
+        Returns:
+            int: number of goods loaded
+        """
+        spare_space = Boat.capacity - self.cnt
+        insert = min(spare_space, len(goods))
+        self.goodlist.extend(goods[:insert])
+        return insert
+
+    def unload(self) -> float:
+        """unload all goods on the boat
+
+        Returns:
+            float: sum of goods value
+        """
+        value = self.val
+        self.goodlist.clear()
+        return value
+
+    @property
+    def cnt(self):
+        """count the number of goods on the boat"""
+        return len(self.goodlist)
+
+    @property
+    def val(self):
+        """sum the value of goods on the boat"""
+        return sum(self.goodlist)
