@@ -1,0 +1,6 @@
+[boat]
+capacity = 71
+
+[berth]
+transportation_time = [123, 456, 789, 111]
+loading_speed = [1, 2, 3, 1]
